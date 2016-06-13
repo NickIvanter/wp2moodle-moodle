@@ -132,6 +132,7 @@ if (!empty($_GET)) {
 
 		$activity = (integer) get_key_value($userdata, "activity"); // activity number to start at, > 0
 		$updatefields = (get_key_value($userdata, "updatable") != "false"); // if true or not set, update fields like email, username, etc.
+		$comefrom = get_key_value($userdata, "comefrom");
 
 		$courseId = 0; // cache
 
@@ -305,6 +306,10 @@ if (!empty($_GET)) {
 					$SESSION->wantsurl = new moodle_url("/mod/$mod->name/view.php", array("id" => $mod->id));
 				}
 			}
+		}
+
+		if (isset($comefrom) && $comefrom && $comefrom !== '1') { // Specific path requested
+			$SESSION->wantsurl = new moodle_url($comefrom);
 		}
 
 		// all that's left to do is to authenticate this user and set up their active session

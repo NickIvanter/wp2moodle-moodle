@@ -91,6 +91,34 @@ class auth_plugin_wp2moodle extends auth_plugin_base {
         return false;
     }
 
+	/**
+	 * Redirect to wp login page
+	 */
+	function preloginpage_hook() {
+		return $this->redirect_login();
+	}
+
+	function loginpage_hook() {
+		return $this->redirect_login();
+	}
+
+	function redirect_login() {
+        global $SESSION;
+
+		if (isset($this->config->loginurl) && $this->config->loginurl) {
+			$url = $this->config->loginurl;
+			if (isset($SESSION->wantsurl) && $SESSION->wantsurl) {
+				$redirect = 'index.php?wp2moodle_sso=' . urlencode($SESSION->wantsurl);
+			} else {
+				$redirect = 'index.php?wp2moodle_sso=1';
+			}
+
+			$url = "$url/$redirect";
+			redirect($url);
+		}
+	}
+
+
     function logoutpage_hook() {
         global $SESSION;
         set_moodle_cookie('nobody');
@@ -146,6 +174,7 @@ class auth_plugin_wp2moodle extends auth_plugin_base {
 
         // save settings
         set_config('sharedsecret', $config->sharedsecret, 'auth/wp2moodle');
+        set_config('loginurl', $config->loginurl, 'auth/wp2moodle');
         set_config('logoffurl', $config->logoffurl, 'auth/wp2moodle');
         set_config('timeout', $config->timeout, 'auth/wp2moodle');
         set_config('autoopen', $config->autoopen, 'auth/wp2moodle');
