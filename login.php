@@ -212,9 +212,36 @@ if (!empty($_GET)) {
 			$newuser->firstname = $firstname;
 			$newuser->lastname = $lastname;
 			$newuser->email = $email;
-			if (empty($newuser->lang) || !get_string_manager()->translation_exists($newuser->lang)) {
-				$newuser->lang = $CFG->lang;
+
+			/*
+             * if (empty($newuser->lang) || !get_string_manager()->translation_exists($newuser->lang)) {
+			 * 	$newuser->lang = $CFG->lang;
+			 * }
+             */
+
+			// Apply default values for user preferences that are stored in users table.
+			if (!isset($user->calendartype)) {
+				$newuser->calendartype = core_user::get_property_default('calendartype');
 			}
+			if (!isset($newuser->maildisplay)) {
+				$newuser->maildisplay = core_user::get_property_default('maildisplay');
+			}
+			if (!isset($newuser->mailformat)) {
+				$newuser->mailformat = core_user::get_property_default('mailformat');
+			}
+			if (!isset($newuser->maildigest)) {
+				$newuser->maildigest = core_user::get_property_default('maildigest');
+			}
+			if (!isset($newuser->autosubscribe)) {
+				$newuser->autosubscribe = core_user::get_property_default('autosubscribe');
+			}
+			if (!isset($newuser->trackforums)) {
+				$newuser->trackforums = core_user::get_property_default('trackforums');
+			}
+			if (!isset($newuser->lang)) {
+				$newuser->lang = core_user::get_property_default('lang');
+			}
+
 			$newuser->confirmed = 1; // don't want an email going out about this user
 			$newuser->lastip = getremoteaddr();
 			$newuser->timecreated = time();
