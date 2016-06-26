@@ -184,6 +184,10 @@ class auth_plugin_wp2moodle extends auth_plugin_base {
         return true;
     }
 
+	function edit_profile_url() {
+		return "/auth/wp2moodle/profile.php";
+	}
+
 }
 
 
