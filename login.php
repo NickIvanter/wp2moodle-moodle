@@ -144,8 +144,8 @@ if (!empty($_GET)) {
 			$updateuser->idnumber = $idnumber;
 			if ($updatefields) {
 				$updateuser->email = $email;
-				$updateuser->firstname = $firstname;
-				$updateuser->lastname = $lastname;
+				// $updateuser->firstname = $firstname;
+				// $updateuser->lastname = $lastname;
 			}
 			// do not update username
 			// do not update password, we don't know it
@@ -167,8 +167,8 @@ if (!empty($_GET)) {
 				$updateuser = get_complete_user_data('idnumber', $idnumber);
 				// $updateuser->idnumber = $idnumber;
 				$updateuser->email = $email;
-				$updateuser->firstname = $firstname;
-				$updateuser->lastname = $lastname;
+				// $updateuser->firstname = $firstname;
+				// $updateuser->lastname = $lastname;
 				// $updateuser->username = $username;
 
 				$updateuser = truncate_user($updateuser); // make sure we haven't exceeded any field limits
