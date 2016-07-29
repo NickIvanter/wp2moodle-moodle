@@ -27,7 +27,7 @@ class auth_plugin_wp2moodle extends auth_plugin_base {
     /**
      * Constructor.
      */
-    function auth_plugin_wp2moodle() {
+    function __construct() {
         $this->authtype = 'wp2moodle';
         $this->config = get_config('auth/wp2moodle');
     }
